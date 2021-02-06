@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
-import smbus
-import time
+import logging
 import os
+import smbus
+import sys
+import time
 
 FAN_ADDRESS = 0x1A
 
@@ -19,6 +21,8 @@ def read_env_var(name, default):
     return float(tmp)
 
 def main():
+    logging.basicConfig(level=logging.DEBUG)
+
     MIN_TEMP = read_env_var("MIN_TEMP", 11.0)
     MAX_TEMP = read_env_var("MAX_TEMP", 30.0)
 
@@ -38,7 +42,7 @@ def main():
 
         fan_speed = int(fan_speed)
 
-        print("Setting fan speed at {} for temperature {}°C".format(fan_speed, temp))
+        logging.debug("Setting fan speed at {} for temperature {}°C".format(fan_speed, temp))
 
         bus.write_byte(FAN_ADDRESS, fan_speed)
         time.sleep(10)

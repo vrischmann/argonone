@@ -1,0 +1,23 @@
+[Unit]
+Description=Argon ONE Fan Control
+
+[Service]
+Restart=always
+RestartSec=30sec
+
+Environment=MIN_TEMP=50
+Environment=MAX_TEMP=75
+
+ExecStart=/usr/local/bin/argonone
+
+StandardOutput=journal
+StandardError=journal
+StandardInput=null
+
+MemoryAccounting=true
+MemoryLimit=16M
+LimitNOFILE=128
+LimitNPROC=8
+
+[Install]
+WantedBy=multi-user.target
