@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+
+import smbus
+import time
+import os
+
+FAN_ADDRESS = 0x1A
+
+def get_temp():
+    with open("/sys/class/thermal/thermal_zone0/temp", 'r') as f:
+        data = f.read().strip()
+        return float(data) / 1000.0
+
+def read_env_var(name, default):
+    tmp = os.getenv(name)
+    if tmp is None:
+        return default
+
+    return float(tmp)
+
+def main():
+    MIN_TEMP = read_env_var("MIN_TEMP", 11.0)
+    MAX_TEMP = read_env_var("MAX_TEMP", 30.0)
+
+    # This is /dev/i2c-1
+    bus = smbus.SMBus(1)
+
+    while True:
+        fan_speed = 0
+        temp = get_temp()
+
+        if temp >= MAX_TEMP:
+            fan_speed = 100
+        elif temp >= MIN_TEMP:
+            fan_speed = (((temp - MIN_TEMP) * 90.0 / (MAX_TEMP - MIN_TEMP)) + 10.0)
+            if fan_speed > 100:
+                fan_speed = 100
+
+        fan_speed = int(fan_speed)
+
+        print("Setting fan speed at {} for temperature {}°C".format(fan_speed, temp))
+
+        bus.write_byte(FAN_ADDRESS, fan_speed)
+        time.sleep(10)
+
+if __name__ == '__main__':
+    main()
