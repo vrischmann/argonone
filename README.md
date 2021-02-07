@@ -18,8 +18,8 @@ $ zig build -Dtarget=aarch64-linux-musl
 Run it like this:
 ```
 $ MIN_TEMP=30 MAX_TEMP=70 argonone
-Setting fan speed at 2 for temperature 44.303°C
-Setting fan speed at 2 for temperature 43.816°C
+info(main): Setting fan speed at 46 for temperature 46.250999450683594°C
+info(main): Setting fan speed at 46 for temperature 46.250999450683594°C
 ```
 
 There's a `argonone.service` systemd unit you can use as well.
