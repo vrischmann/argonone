@@ -1,14 +1,17 @@
 # argonone
 
-This is a script for controlling the fan speed in a [Argon ONE Pi 4](https://www.argon40.com/argon-one-raspberry-pi-4-case.html) case.
+This is a program for controlling the fan speed in a [Argon ONE Pi 4](https://www.argon40.com/argon-one-raspberry-pi-4-case.html) case.
 
-I'm running base Debian buster, not Raspberry Pi OS and everything I found so far either didn't work or did too much.
+## Requirements
 
-I only care about controlling the fan so this script does just that.
+[Zig master](https://ziglang.org/)
 
-## Dependencies
+## Build
 
-You need the package `python3-smbus` on Debian or equivalent on other distributions.
+Run this:
+```
+$ zig build -Dtarget=aarch64-linux-musl
+```
 
 ## Usage
 
