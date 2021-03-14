@@ -1,6 +1,6 @@
 # argonone
 
-This is a program for controlling the fan speed in a [Argon ONE Pi 4](https://www.argon40.com/argon-one-raspberry-pi-4-case.html) case.
+This is a program for controlling the fan speed in a [Argon ONE Pi 4](https://www.argon40.com/argon-one-m-2-case-for-raspberry-pi-4.html) case.
 
 ## Requirements
 
