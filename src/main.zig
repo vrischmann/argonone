@@ -80,12 +80,19 @@ fn computeFanSpeed(temperature: f32, min_temp: f32, max_temp: f32) u8 {
 
 const logger = std.log.scoped(.main);
 
+pub const log_level = std.log.Level.debug;
+
 pub fn main() anyerror!void {
     const min_temp: f32 = if (std.os.getenv("MIN_TEMP")) |v| try std.fmt.parseFloat(f32, v) else 55.0;
     const max_temp: f32 = if (std.os.getenv("MAX_TEMP")) |v| try std.fmt.parseFloat(f32, v) else 75.0;
 
     // This is /dev/i2c-1
+
+    logger.info("initializing SMBus", .{});
+
     var bus = try SMBus.init(1);
+
+    logger.info("initialized SMBus", .{});
 
     while (true) {
         const temperature = try getTemperature();
