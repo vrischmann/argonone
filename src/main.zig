@@ -85,13 +85,13 @@ pub const log_level = std.log.Level.debug;
 pub fn main() anyerror!void {
     const min_temp: f32 = if (std.os.getenv("MIN_TEMP")) |v| try std.fmt.parseFloat(f32, v) else 55.0;
     const max_temp: f32 = if (std.os.getenv("MAX_TEMP")) |v| try std.fmt.parseFloat(f32, v) else 75.0;
-
-    // This is /dev/i2c-1
+    const bus_number: usize = if (std.os.getenv("BUS_NUMBER")) |v|
+        try std.fmt.parseInt(usize, v, 10)
+    else
+        std.debug.panic("please provide the bus number", .{});
 
     logger.info("initializing SMBus", .{});
-
-    var bus = try SMBus.init(1);
-
+    var bus = try SMBus.init(bus_number);
     logger.info("initialized SMBus", .{});
 
     while (true) {
