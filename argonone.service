@@ -8,7 +8,7 @@ RestartSec=30sec
 Environment=MIN_TEMP=50
 Environment=MAX_TEMP=75
 
-ExecStart=/usr/local/bin/argonone
+ExecStart=/usr/bin/argonone
 
 StandardOutput=journal
 StandardError=journal
